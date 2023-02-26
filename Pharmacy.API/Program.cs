@@ -1,8 +1,21 @@
+using Microsoft.EntityFrameworkCore;
+using Pharmacy.API.Data;
+using Pharmacy.API.Interfaces;
+using Pharmacy.API.Models;
+using Pharmacy.API.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddDbContext<DataContext>(opt =>
+{
+    opt.UseInMemoryDatabase("Database");
+});
+
+builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
